@@ -1,0 +1,906 @@
+#!MANAGED-CONFIG https://api.sublink.dev/sub?target=surge&ver=4&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsun520999%2Ffreev2ray%2F2021%2F0907.txt&insert=false&emoji=true&list=false&tfo=false&scv=false&fdn=false&sort=false interval=86400 strict=false
+
+[General]
+bypass-system = true
+skip-proxy = 127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,100.64.0.0/10,17.0.0.0/8,localhost,*.local,169.254.0.0/16,224.0.0.0/4,240.0.0.0/4
+dns-server = 119.29.29.29, 119.28.28.28, 180.76.76.76, 1.2.4.8
+hijack-dns = 8.8.8.8:53, 8.8.4.4:53
+loglevel = notify
+replica = false
+show-error-page-for-reject = true
+exclude-simple-hostnames = true
+always-real-ip = *.srv.nintendo.net, *.stun.playstation.net, xbox.*.microsoft.com, *.xboxlive.com, msftconnecttest.com, msftncsi.com, *.msftconnecttest.com, *.msftncsi.com
+internet-test-url = http://www.aliyun.com
+proxy-test-url = http://cp.cloudflare.com/generate_204
+# macOS Only
+enhanced-mode-by-rule = false
+
+[Rule]
+# Proxy
+PROCESS-NAME,v2ray,DIRECT
+PROCESS-NAME,ss-local,DIRECT
+
+# YouTube UDP REJECT
+AND,((PROTOCOL,UDP),(DEST-PORT,443)),REJECT-NO-DROP
+
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/Download.list,DIRECT
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/Unbreak.list,DIRECT
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/Guard/Advertising.list,REJECT
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/StreamingMedia/Video/Netflix.list,Netflix
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/StreamingMedia/Video/Bahamut.list,Bahamut
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/StreamingMedia/StreamingSE.list,Bilibili
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/StreamingMedia/Music/NeteaseMusic.list,Netease
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/Extra/Apple/Apple.list,Apple
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/Global.list,Proxies
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/China.list,DIRECT
+RULE-SET,https://raw.githubusercontent.com/AGWA5783/Profiles/master/Surge/Ruleset/LocalAreaNetwork.list,DIRECT
+GEOIP,CN,DIRECT
+FINAL,Proxies
+
+[URL Rewrite]
+# AbeamTV Unlock
+^https?:\/\/api\.abema\.io\/v\d\/ip\/check - reject
+
+# Redirect Google Service
+^https?:\/\/(www.)?g\.cn https://www.google.com 302
+^https?:\/\/(www.)?google\.cn https://www.google.com 302
+
+# Redirect HTTP to HTTPS
+^https?:\/\/(www.)?taobao\.com\/ https://www.taobao.com/ 302
+^https?:\/\/(www.)?jd\.com\/ https://www.jd.com/ 302
+^https?:\/\/(www.)?mi\.com\/ https://www.mi.com/ 302
+^https?:\/\/you\.163\.com\/ https://you.163.com/ 302
+^https?:\/\/(www.)?suning\.com/ https://suning.com/ 302
+^https?:\/\/(www.)?yhd\.com https://yhd.com/ 302
+
+# Redirect False to True
+# >> IGN China to IGN Global
+^https?:\/\/(www.)?ign\.xn--fiqs8s\/ http://cn.ign.com/ccpref/us 302
+# >> Fake Website Made By Makeding
+^https?:\/\/(www.)?abbyychina\.com\/ http://www.abbyy.cn/ 302
+^https?:\/\/(www.)?bartender\.cc\/ https://cn.seagullscientific.com 302
+^https?:\/\/(www.)?betterzip\.net\/ https://macitbetter.com/ 302
+^https?:\/\/(www.)?beyondcompare\.cc\/ https://www.scootersoftware.com/ 302
+^https?:\/\/(www.)?bingdianhuanyuan\.cn\/ http://www.faronics.com/zh-hans/ 302
+^https?:\/\/(www.)?chemdraw\.com\.cn\/ http://www.cambridgesoft.com/ 302
+^https?:\/\/(www.)?codesoftchina\.com\/ https://www.teklynx.com/ 302
+^https?:\/\/(www.)?coreldrawchina\.com\/ https://www.coreldraw.com/cn/ 302
+^https?:\/\/(www.)?crossoverchina\.com\/ https://www.codeweavers.com/ 302
+^https?:\/\/(www.)?easyrecoverychina\.com\/ https://www.ontrack.com/ 302
+^https?:\/\/(www.)?ediuschina\.com\/ https://www.grassvalley.com/ 302
+^https?:\/\/(www.)?flstudiochina\.com\/ https://www.image-line.com/flstudio/ 302
+^https?:\/\/(www.)?formysql\.com\/ https://www.navicat.com.cn 302
+^https?:\/\/(www.)?guitarpro\.cc\/ https://www.guitar-pro.com/ 302
+^https?:\/\/(www.)?huishenghuiying\.com\.cn\/ https://www.corel.com/cn/ 302
+^https?:\/\/(www.)?iconworkshop\.cn\/ https://www.axialis.com/iconworkshop/ 302
+^https?:\/\/(www.)?imindmap\.cc\/ https://imindmap.com/zh-cn/ 302
+^https?:\/\/(www.)?jihehuaban\.com\.cn\/ https://sketch.io/ 302
+^https?:\/\/(www.)?keyshot\.cc\/ https://www.keyshot.com/ 302
+^https?:\/\/(www.)?mathtype\.cn\/ http://www.dessci.com/en/products/mathtype/ 302
+^https?:\/\/(www.)?mindmanager\.cc\/ https://www.mindjet.com/ 302
+^https?:\/\/(www.)?mindmapper\.cc\/ https://mindmapper.com 302
+^https?:\/\/(www.)?mycleanmymac\.com\/ https://macpaw.com/cleanmymac 302
+^https?:\/\/(www.)?nicelabel\.cc\/ https://www.nicelabel.com/ 302
+^https?:\/\/(www.)?ntfsformac\.cc\/ https://www.tuxera.com/products/tuxera-ntfs-for-mac-cn/ 302
+^https?:\/\/(www.)?ntfsformac\.cn\/ https://www.paragon-software.com/ufsdhome/zh/ntfs-mac/ 302
+^https?:\/\/(www.)?overturechina\.com\/ https://sonicscores.com/overture/ 302
+^https?:\/\/(www.)?passwordrecovery\.cn\/ https://cn.elcomsoft.com/aopr.html 302
+^https?:\/\/(www.)?pdfexpert\.cc\/ https://pdfexpert.com/zh 302
+^https?:\/\/(www.)?ultraiso\.net\/ https://cn.ezbsystems.com/ultraiso/ 302
+^https?:\/\/(www.)?vegaschina\.cn\/ https://www.vegas.com/ 302
+^https?:\/\/(www.)?xmindchina\.net\/ https://www.xmind.cn/ 302
+^https?:\/\/(www.)?xshellcn\.com\/ https://www.netsarang.com/products/xsh_overview.html 302
+^https?:\/\/(www.)?yuanchengxiezuo\.com\/ https://www.teamviewer.com/zhcn/ 302
+^https?:\/\/(www.)?zbrushcn\.com\/ http://pixologic.com/ 302
+^https://aweme-eagle(.*)\.snssdk\.com/aweme/v2/ https://aweme-eagle$1.snssdk.com/aweme/v1/ 302
+
+# JD Protection
+^https?:\/\/coupon\.m\.jd\.com\/ https://coupon.m.jd.com/ 302
+^https?:\/\/h5\.m\.jd\.com\/ https://h5.m.jd.com/ 302
+^https?:\/\/item\.m\.jd\.com\/ https://item.m.jd.com/ 302
+^https?:\/\/m\.jd\.com\/ https://m.jd.com/ 302
+^https?:\/\/newcz\.m\.jd\.com\/ https://newcz.m.jd.com/ 302
+^https?:\/\/p\.m\.jd\.com\/ https://p.m.jd.com/ 302
+^https?:\/\/so\.m\.jd\.com\/ https://so.m.jd.com/ 302
+^https?:\/\/union\.click\.jd\.com\/jda? http://union.click.jd.com/jda?adblock= header
+^https?:\/\/union\.click\.jd\.com\/sem.php? http://union.click.jd.com/sem.php?adblock= header
+^https?:\/\/www.jd.com\/ https://www.jd.com/ 302
+
+# TikTok Internation
+(?<=(carrier|account|sys|sim)_region=)CN JP 307
+
+# Wiki
+# ^https://zh.(m.)?wikipedia.org/zh(-\w*)?(?=/) https://www.wikiwand.com/zh$2 302
+# ^https://(\w*).(m.)?wikipedia.org/wiki https://www.wikiwand.com/$1 302
+
+# Resso
+
+(?<=(carrier|account|sys|sim)_region=)cn in 307
+
+# Advertising Block
+
+# >> 2048Puzzle
+^https?:\/\/a\.applovin\.com\/3\.0\/ad - reject
+
+# >> 4gTV
+^https?:\/\/service\.4gtv\.tv\/4gtv\/Data\/GetAD - reject
+^https?:\/\/service\.4gtv\.tv\/4gtv\/Data\/ADLog - reject
+
+# >> 58
+^https?:\/\/.+\.58cdn\.com\.cn\/brandads\/ - reject
+^https?:\/\/app\.58\.com\/api\/home\/advertising\/ - reject
+^https?:\/\/app\.58\.com\/api\/home\/appadv\/ - reject
+^https?:\/\/app\.58\.com\/api\/home\/invite\/popupAdv - reject
+^https?:\/\/app\.58\.com\/api\/log\/ - reject
+
+# >> AcFun
+^https?:\/\/aes\.acfun\.cn\/s\?adzones - reject
+
+# >> Ai NanNing
+^https?:\/\/nnapp\.cloudbae\.cn\/mc\/api\/advert/ - reject
+
+# >> Aihuishou
+^https?:\/\/gw\.aihuishou\.com\/app-portal\/home\/getadvertisement - reject
+
+# >> AMap
+^https?:\/\/m\d{1}\.amap\.com\/ws\/valueadded\/alimama\/splash_screen\/ - reject
+
+# >> Baicizhan
+^https?:\/\/7n\.bczcdn\.com\/launchad\/ - reject
+
+# >> Baidu
+^https?:\/\/.+\/client\/phpui2\/ - reject
+^https?:\/\/cover.baidu.com\/cover\/page\/dspSwitchAds\/ - reject
+^https?:\/\/c\.tieba\.baidu\.com\/c\/s\/splashSchedule - reject
+^https?:\/\/issuecdn\.baidupcs\.com\/issue\/netdisk\/guanggao\/ - reject
+^https?:\/\/update\.pan\.baidu\.com\/statistics - reject
+
+# >> Baobao
+^https?:\/\/www\.myhug\.cn\/ad\/ - reject
+
+# >> Beike Zhaofang
+^https?:\/\/app\.api\.ke\.com\/config\/config\/bootpage - reject
+
+# >> Beitaicuhfang
+^https?:\/\/channel\.beitaichufang\.com\/channel\/api\/v\d\/promote\/ios\/start\/page - reject
+
+# >> Bi ShiJie
+^https?:\/\/iapi\.bishijie\.com\/actopen\/advertising\/ - reject
+
+# >> Bilibili
+^https?:\/\/app\.bilibili\.com\/x\/v\d\/splash\/ - reject
+
+# >> ByteDance
+^https?:\/\/.+\.(musical|snssdk)\.(com|ly)\/(api|motor)\/ad\/ - reject
+^https?:\/\/.+\.pstatp\.com\/img\/ad - reject
+^https?:\/\/.+\.snssdk\.com\/motor\/operation\/activity\/display\/config\/v\d\/ - reject
+^https?:\/\/dsp\.toutiao\.com\/api\/xunfei\/ads\/ - reject
+
+# >> CamScanner
+^https?:\/\/api\.intsig\.net\/user\/cs\/operating\/app\/get_startpic\/ - reject
+
+# >> Caocao Chuxin
+^https?:\/\/cap\.caocaokeji\.cn\/advert-bss\/ - reject
+
+# >> Chelaile
+^https?:\/\/(api|atrace)\.chelaile\.net\.cn\/adpub\/ - reject
+^https?:\/\/api\.chelaile\.net\.cn\/goocity\/advert\/ - reject
+^https?:\/\/atrace\.chelaile\.net\.cn\/exhibit\?&adv_image - reject
+^https?:\/\/pic1\.chelaile\.net\.cn\/adv\/ - reject
+
+# >> ChinaMobile
+^https?:\/\/app\.10086\.cn\/biz-orange\/DN\/(findSale|homeSale)\/getsaleAdver - reject
+
+# >> ChinaUnicom
+^https?:\/\/m\.client\.10010\.com\/mobileService\/customer\/accountListData\.htm - reject
+^https?:\/\/m\.client\.10010\.com\/uniAdmsInterface\/(getWelcomeAd|getHomePageAd) - reject
+
+# >> CNTV
+^https?:\/\/asp\.cntv\.myalicdn\.com\/.+\?maxbr=850 - reject
+^https?:\/\/cntv\.hls\.cdn\.myqcloud\.com\/.+\?maxbr=850 - reject
+^https?:\/\/v\.cctv\.com\/.+850 - reject
+^https?:\/\/www\.cntv\.cn\/nettv\/adp\/ - reject
+
+# >> DanDan Zan
+^https?:\/\/www\.dandanzan\.com\/res\/gdsefse\.js - reject
+
+# >> DangDang
+^https?:\/\/mapi\.dangdang\.com\/index\.php\?action=init - reject
+
+# >> DayDayCook
+^https?:\/\/api\.daydaycook\.com\.cn\/daydaycook\/server\/ad\/ - reject
+^https?:\/\/cms\.daydaycook\.com\.cn\/api\/cms\/advertisement\/ - reject
+
+# >> eLong
+^https?:\/\/mobile-api2011\.elong\.com\/(adgateway|adv)\/ - reject
+^https?:\/\/(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})(\.(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})){3}\/(adgateway|adv)\/ - reject
+
+# >> Facebook
+^https?:\/\/www\.facebook\.com\/.+video_click_to_advertiser_site - reject
+
+# >> Fliggy
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.trip\.activity\.querytmsresources\/ - reject
+
+# >> Flyer Tea
+^https?:\/\/www\.flyertea\.com\/source\/plugin\/mobile\/mobile\.php\?module=advis - reject
+
+# >> Foodie
+^https?:\/\/foodie-api\.yiruikecorp\.com\/v\d\/(banner|notice)\/overview - reject
+
+# >> FOTOABLE
+^https?:\/\/cdn\.api\.fotoable\.com\/Advertise\/ - reject
+
+# >> Gofun
+^https?:\/\/gateway\.shouqiev\.com\/fsda\/app\/bootImage\.json - reject
+
+# >> Google
+^https?:\/\/.+\.youtube\.com\/api\/stats\/.+adformat - reject
+^https?:\/\/.+\.youtube\.com\/api\/stats\/ads - reject
+^https?:\/\/.+\.youtube\.com\/get_midroll - reject
+^https?:\/\/.+\.youtube\.com\/get_midroll_ - reject
+^https?:\/\/.+\.youtube\.com\/pagead\/ - reject
+^https?:\/\/.+\.youtube\.com\/ptracking - reject
+^https?:\/\/.+\.youtube\.com\/ptracking\? - reject
+^https?:\/\/pagead2.googlesyndication.com\/pagead\/js\/? - reject
+^https?:\/\/pagead2.googlesyndication.com\/pagead\/js\/? - reject
+^https?:\/\/premiumyva\.appspot\.com\/vmclickstoadvertisersite - reject
+^https?:\/\/www.google-analytics.com\/analytics.js - reject
+^https?:\/\/www.google-analytics.com\/analytics.js - reject
+^https?:\/\/youtubei\.googleapis\.com/.+ad_break - reject
+^https?:\/\/youtubei\.googleapis\.com\/youtubei\/.+ad_ - reject
+^https?:\/\/youtubei\.googleapis\.com\/youtubei\/.+log_ - reject
+
+# >> Hangzhou Bus
+^https?:\/\/m\.ibuscloud.com\/v\d\/app\/getStartPage - reject
+
+# >> Hangzhou Citizen Card
+^https?:\/\/smkmp\.96225.com\/smkcenter\/ad/ - reject
+
+# >> Hupu
+^https?:\/\/games\.mobileapi\.hupu\.com\/.+\/(interfaceAdMonitor|interfaceAd)\/ - reject
+^https?:\/\/games\.mobileapi\.hupu\.com\/.+\/status\/init - reject
+
+# >> IdleFish
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.taobao\.idle\.home\.welcome\/ - reject
+
+# >> iFlytek
+^https?:\/\/imeclient\.openspeech\.cn\/adservice\/ - reject
+
+# >> iQiyi
+^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/show.do - reject
+^https?:\/\/act\.vip\.iqiyi\.com\/interact\/api\/v\d\/show - reject
+^https?:\/\/iface\.iqiyi\.com\/api\/getNewAdInfo - reject
+^https?:\/\/t7z\.cupid\.iqiyi\.com\/mixer\? - reject
+
+# >> JD
+^https?:\/\/(bdsp-x|dsp-x)\.jd\.com\/adx\/ - reject
+^https?:\/\/api\.m\.jd.com\/client\.action\?functionId=start - reject
+^https?:\/\/ms\.jr\.jd\.com\/gw\/generic\/base\/na\/m\/adInfo - reject
+
+# >> Jiemian
+^https?:\/\/img\.jiemian\.com\/ads\/ - reject
+
+# >> JXEDT
+^https?:\/\/api\.jxedt\.com\/ad\/ - reject
+^https?:\/\/richmanapi\.jxedt\.com\/api\/ad\/ - reject
+
+# >> Keep
+^https?:\/\/static1\.keepcdn\.com\/.+\d{3}x\d{4} - reject
+^https?:\/\/api\.gotokeep\.com\/ads\/ - reject
+
+# >> KFC
+^https?:\/\/res\.kfc\.com\.cn\/advertisement\/ - reject
+
+# >> Kingsoft
+^https?:/\/\counter\.ksosoft.com\/ad\.php - reject
+^https?:\/\/.+\.kingsoft-office-service\.com\/ad - reject
+^https?:\/\/counter\.ksosoft\.com\/ad\.php - reject
+^https?:\/\/dict-mobile\.iciba\.com\/interface\/index\.php\?.+(c=ad|collectFeedsAdShowCount|KSFeedsAdCardViewController) - reject
+^https?:\/\/ios\.wps\.cn\/ad-statistics-service - reject
+^https?:\/\/mobile-pic\.cache\.iciba\.com\/feeds_ad\/ - reject
+^https?:\/\/service\.iciba\.com\/popo\/open\/screens\/v\d\?adjson - reject
+
+# >> KouBei
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.o2o\.ad\.gateway\.get\/ - reject
+^https?:\/\/render\.alipay\.com\/p\/s\/h5data\/prod\/spring-festival-2019-h5data\/popup-h5data\.json - reject
+
+# >> Kuaikan Comic
+^https?:\/\/api\.kkmh\.com\/.+(ad|advertisement)\/ - reject
+
+# >> Kuwo
+^https?:\/\/(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})(\.(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})){3}\/EcomResourceServer/AdPlayPage/adinfo - reject
+^https?:\/\/(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})(\.(2(5[0-5]{1}|[0-4]\d{1})|[0-1]?\d{1,2})){3}\/MobileAdServer\/ - reject
+
+# >> Le
+^https?:\/\/.+\/letv-gug\/ - reject
+
+# >> Luckin Coffee
+^https?:\/\/.+\/resource\/m\/promo\/adsense - reject
+^https?:\/\/.+\/resource\/m\/sys\/app\/adpos - reject
+
+# >> MaFengWo
+^https?:\/\/mapi\.mafengwo\.cn\/ad\/ - reject
+^https?:\/\/mapi\.mafengwo\.cn\/travelguide\/ad\/ - reject
+
+# >> Mahua Video
+^https?:\/\/.+\/api\/app\/member\/ver2\/user\/login\/ - reject
+
+
+# >> Maiduidui
+^https?:\/\/mob\.mddcloud\.com\.cn\/api\/(ad|advert)\/ - reject
+
+# >> Manhuaren
+^https?:\/\/mangaapi\.manhuaren\.com\/v\d\/public\/getStartPageAds - reject
+
+
+# >> Meituan
+^https?:\/\/img\.meituan\.net\/midas\/ - reject
+^https?:\/\/p([0-9])\.meituan\.net\/(mmc|wmbanner)\/ - reject
+^https?:\/\/p\d{1}\.meituan\.net\/(adunion|display|linglong|mmc|wmbanner)\/ - reject
+^https?:\/\/s3plus\.meituan\.net\/.+\/linglong\/ - reject
+
+# >> Meiweibuyongdeng
+^https?:\/\/capi.mwee.cn/app-api/V12/app/getstartad - reject
+
+# >> MI
+^https?:\/\/api\.m\.mi\.com\/v\d\/app\/start - reject
+^https?:\/\/api\.jr\.mi\.com\/v\d\/adv\/ - reject
+^https?:\/\/api\.jr\.mi\.com\/jr\/api\/playScreen - reject
+
+# >> MI Fit
+^https?:\/\/api-mifit\.huami\.com\/discovery\/mi\/discovery\/homepage_ad\? - reject
+^https?:\/\/api-mifit\.huami\.com\/discovery\/mi\/discovery\/sleep_ad\? - reject
+^https?:\/\/api-mifit\.huami\.com\/discovery\/mi\/discovery\/sport_ad\? - reject
+^https?:\/\/api-mifit\.huami\.com\/discovery\/mi\/discovery\/sport_summary_ad\? - reject
+^https?:\/\/api-mifit\.huami\.com\/discovery\/mi\/discovery\/sport_training_ad\? - reject
+^https?:\/\/api-mifit\.huami\.com\/discovery\/mi\/discovery\/step_detail_ad\? - reject
+^https?:\/\/api-mifit\.huami\.com\/discovery\/mi\/discovery\/training_video_ad\? - reject
+
+# >> Miaopai
+^https?:\/\/b-api\.ins\.miaopai\.com\/1\/ad/ - reject
+
+# >> MIgu
+^https?:\/\/.+\/v\d\/iflyad\/ - reject
+^https?:\/\/.+\/cdn-adn\/ - reject
+^https?:\/\/ggic\.cmvideo\.cn\/ad\/ - reject
+^https?:\/\/ggic2\.cmvideo\.cn\/ad\/ - reject
+^https?:\/\/.+/img\/ad\.union\.api\/ - reject
+
+# >> MixC
+^https?:\/\/app\.mixcapp\.com\/mixc\/api\/v\d\/ad - reject
+
+# >> MogoRenter
+^https?:\/\/api\.mgzf\.com\/renter-operation\/home\/startHomePage - reject
+
+# >> MojiWeather
+^https?:\/\/cdn\.moji\.com\/(adoss|adlink)\/ - reject
+
+# >> Myhug
+^https?:\/\/www\.myhug\.cn\/ad\/ - reject
+
+# >> NationalGeographic
+^https?:\/\/dili\.bdatu\.com\/jiekou\/ad\/ - reject
+
+# >> NationalGeographicChina
+^https?:\/\/wap\.ngchina\.cn\/news\/adverts\/ - reject
+
+# >> NetEase
+^https?:\/\/.+\/eapi\/(ad|log)\/ - reject
+^https?:\/\/client\.mail\.163\.com\/apptrack\/confinfo\/searchMultiAds - reject
+^https?:\/\/c\.m\.163\.com\/nc\/gl\/ - reject
+^https?:\/\/dsp-impr2\.youdao\.com\/adload.s\? - reject
+^https?:\/\/oimage([a-z])([0-9])\.ydstatic\.com\/.+adpublish - reject
+^https?:\/\/sp\.kaola\.com\/api\/openad - reject
+^https?:\/\/support\.you\.163\.com\/xhr\/boot\/getBootMedia\.json - reject
+
+# >> ofo
+^https?:\/\/supportda\.ofo\.com\/adaction\? - reject
+^https?:\/\/ma\.ofo\.com\/ads\/ - reject
+^https?:\/\/activity2\.api\.ofo\.com\/ofo\/Api\/v\d\/ads - reject
+^https?:\/\/ma\.ofo\.com\/adImage\/ - reject
+
+# >> PConline
+^https?:\/\/agent-count\.pconline\.com\.cn\/counter\/adAnalyse\/ - reject
+^https?:\/\/mrobot\.pcauto\.com\.cn\/v\d\/ad2p - reject
+^https?:\/\/mrobot\.pcauto\.com\.cn\/xsp\/s\/auto\/info\/preload\.xsp - reject
+^https?:\/\/mrobot\.pconline\.com\.cn\/s\/onlineinfo\/ad\/ - reject
+^https?:\/\/mrobot\.pconline\.com\.cn\/v\d\/ad2p - reject
+
+# >> PeanutWiFiMpass
+^https?:\/\/cmsapi\.wifi8\.com\/v\d{1}\/(emptyAd|adNew)\/ - reject
+
+# >> Qdaily
+^https?:\/\/app3\.qdaily\.com\/app3\/boot_advertisements\.json - reject
+^https?:\/\/notch\.qdaily\.com\/api\/v\d\/boot_ad - reject
+
+# >> Qiongou
+^https?:\/\/media\.qyer\.com\/ad\/ - reject
+^https?:\/\/open\.qyer.com\/qyer\/config\/get - reject
+^https?:\/\/open\.qyer\.com\/qyer\/startpage\/ - reject
+
+# >> Qiuduoduo
+^https?:\/\/api\.qiuduoduo\.cn\/guideimage - reject
+
+# >> Renren Video
+^https?:\/\/api\.rr\.tv\/ad\/ - reject
+^https?:\/\/api\.videozhishi\.com\/api\/getAdvertising - reject
+^https?:\/\/msspjh\.emarbox\.com\/getAdConfig - reject
+
+# >> ShiHuo
+^https?:\/\/www\.shihuo\.cn\/app3\/saveAppInfo - reject
+
+# >> 首汽约车
+^https?:\/\/gw-passenger\.01zhuanche\.com\/gw-passenger\/car-rest\/webservice\/passenger\/recommendADs - reject
+^https?:\/\/gw-passenger\.01zhuanche\.com\/gw-passenger\/zhuanche-passenger-token\/leachtoken\/webservice\/homepage\/queryADs - reject
+
+# >> Sina
+^https?:\/\/edit\.sinaapp\.com\/ua\?t=adv - reject
+
+# >> Sina Weather
+^https?:\/\/tqt\.weibo\.cn\/.+advert\.index - reject
+^https?:\/\/tqt\.weibo\.cn\/api\/advert\/ - reject
+^https?:\/\/tqt\.weibo\.cn\/overall\/redirect\.php\?r=tqtad - reject
+^https?:\/\/tqt\.weibo\.cn\/overall\/redirect\.php\?r=tqt_sdkad - reject
+
+# >> Sina Weibo
+^https?:\/\/sdkapp\.uve\.weibo\.com\/interface\/sdk\/sdkad\.php - reject
+^https?:\/\/wbapp\.uve\.weibo\.com\/wbapplua\/wbpullad\.lua - reject
+^https?:\/\/sdkapp\.uve\.weibo\.com/\interface\/sdk\/actionad\.php - reject
+
+# >> SMZDM
+^https?:\/\/api\.smzdm\.com\/v\d\/util\/loading - reject
+
+# >> Snail Sleep
+^https?:\/\/snailsleep\.net\/snail\/v\d\/adTask\/ - reject
+^https?:\/\/snailsleep\.net\/snail\/v\d\/screen\/qn\/get\? - reject
+
+# >> Sohu
+^https?:\/\/api\.k\.sohu\.com\/api\/news\/adsense - reject
+^https?:\/\/api\.tv\.sohu\.com\/agg\/api\/app\/config\/bootstrap - reject
+^https?:\/\/hui\.sohu\.com\/predownload2/\? - reject
+^https?:\/\/pic\.k\.sohu\.com\/img8\/wb\/tj\/ - reject
+^https?:\/\/s1\.api\.tv\.itc\.cn\/v\d\/mobile\/control\/switch\.json - reject
+
+# >> StarFans
+^https?:\/\/a\.sfansclub\.com\/business\/t\/ad\/ - reject
+^https?:\/\/a\.sfansclub\.com\/business\/t\/boot\/screen\/index - reject
+
+# >> TaPiaoPiao
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryadvertise\/ - reject
+
+# >> Tencent Futu Securities
+^https?:\/\/api5\.futunn\.com\/ad\/ - reject
+
+# >> Tencent Game
+^https?:\/\/qt\.qq\.com\/lua\/mengyou\/get_splash_screen_info - reject
+^https?:\/\/ssl\.kohsocialapp\.qq\.com:10001\/game\/buttons - reject
+
+# >> Tencent Maps
+^https?:\/\/3gimg\.qq\.com\/tencentMapTouch\/app\/activity\/ - reject
+^https?:\/\/newsso\.map\.qq\.com\/\?&attime= - reject
+
+# >> Tencent News
+^https?:\/\/r\.inews\.qq\.com\/adsBlacklist - reject
+^https?:\/\/r\.inews\.qq\.com\/getFullScreenPic - reject
+^https?:\/\/r\.inews\.qq\.com\/getQQNewsRemoteConfig - reject
+
+# >> Tencent QQLive
+^https?:\/\/.+\.mp4\?cdncode=.+&guid= - reject
+^https?:\/\/.+\.mp4\?cdncode=.+&sdtfrom=v3004 - reject
+^https?:\/\/btrace.qq.com - reject
+^https?:\/\/vv\.video\.qq\.com\/getvmind\? - reject
+
+# >> Tencent WeChat
+^https?:\/\/mp\.weixin\.qq.com\/mp\/advertisement_report - reject
+^https?:\/\/mp\.weixin\.qq.com\/mp\/ad_complaint - reject
+^https?:\/\/mp\.weixin\.qq.com\/mp\/ad_video - reject
+
+# >> The Paper
+^https?:\/\/adpai\.thepaper\.cn\/.+&ad= - reject
+
+# >> Thunder
+^https?:\/\/images\.client\.vip\.xunlei\.com\/.+\/advert\/ - reject
+
+# >> tskscn
+^https?:\/\/47\.97\.20\.12\/ad\/ - reject
+
+# >> TV_Home
+^https?:\/\/api\.gaoqingdianshi\.com\/api\/v\d\/ad\/ - reject
+
+# >> txffp
+^https?:\/\/pss\.txffp\.com\/piaogen\/images\/launchScreen/ - reject
+
+# >> UC
+^https?:\/\/huichuan\.sm\.cn\/jsad - reject
+^https?:\/\/iflow\.uczzd\.cn\/log\/ - reject
+
+# >> Variflight
+^https:\/\/app\.variflight\.com\/v4\/advert\/ - reject
+
+# >> VUE
+^https?:\/\/static\.vuevideo\.net\/styleAssets\/.+\/splash_ad - reject
+^https?:\/\/static\.vuevideo\.net\/styleAssets\/advertisement\/ - reject
+
+# >> WallStreetCN
+^https?:\/\/api\.wallstreetcn\.com\/apiv\d\/advertising\/ - reject
+
+# >> WeDoctor
+^https?:\/\/app\.wy\.guahao\.com\/json\/white\/dayquestion\/getpopad - reject
+
+# >> Weico
+^https?:\/\/overseas\.weico\.cc/portal\.php\?a=get_coopen_ads - reject
+
+# >> WeiDian
+^https?:\/\/thor\.weidian\.com\/ares\/home\.splash\/ - reject
+
+# >> WiFi Share Master
+^https?:\/\/nochange\.ggsafe\.com\/ad\/ - reject
+
+# >> WIFI8
+^https?:\/\/cmsapi\.wifi8\.com\/v\d\/emptyAd\/info - reject
+^https?:\/\/cmsapi\.wifi8\.com\/v\d\/adNew\/config - reject
+
+# >> Wuta Cam
+^https?:\/\/api-release\.wuta-cam\.com\/ad_tree - reject
+^https?:\/\/res-release\.wuta-cam\.com\/json\/ads_component_cache\.json - reject
+
+# >> Xiachufang
+^https?:\/\/api\.xiachufang\.com\/v\d\/ad/ - reject
+
+# >> Xiami music
+^https?:\/\/acs\.m\.taobao\.com\/gw\/mtop\.alimusic\.common\.mobileservice\.startinit\/ - reject
+
+# >> Xianyu
+^https?:\/\/gw\.alicdn\.com\/mt\/ - reject
+^https?:\/\/gw\.alicdn\.com\/tfs\/.+\d{3,4}-\d{4} - reject
+^https?:\/\/gw\.alicdn\.com\/tps\/.+\d{3,4}-\d{4} - reject
+
+# >> Xiao Shuimian
+^https?:\/\/api\.psy-1\.com\/cosleep\/startup - reject
+
+# >> Ximalaya
+^https?:\/\/adse.+\.com\/[a-z]{4}\/loading\?appid= - reject
+^https?:\/\/adse\.ximalaya\.com\/ting\/feed\?appid= - reject
+^https?:\/\/adse\.ximalaya\.com\/ting\/loading\?appid= - reject
+^https?:\/\/adse\.ximalaya\.com\/ting\?appid= - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group21\/M03\/E7\/3F\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group21\/M0A\/95\/3B\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group22\/M00\/92\/FF\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group22\/M05\/66\/67\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group22\/M07\/76\/54\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group23\/M01\/63\/F1\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group23\/M04\/E5\/F6\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group23\/M07\/81\/F6\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group23\/M0A\/75\/AA\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group24\/M03\/E6\/09\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group24\/M07\/C4\/3D\/ - reject
+^https?:\/\/fdfs\.xmcdn\.com\/group25\/M05\/92\/D1\/ - reject
+
+# >> Xunyou Booster
+^https?:\/\/portal-xunyou\.qingcdn\.com\/api\/v\d\/ios\/configs\/(splash_ad|ad_urls) - reject
+^https?:\/\/portal-xunyou\.qingcdn\.com\/api\/v\d{1}\/ios\/ads\/ - reject
+
+# >> Yahoo!
+^https?:\/\/m\.yap\.yahoo\.com\/v18\/getAds\.do - reject
+
+# >> Yingshi Cloud Video
+^https?:\/\/i\.ys7\.com\/api\/ads - reject
+
+# >> YOUKU
+^https?:\/\/.+\.mp4\?ccode=0902 - reject
+^https?:\/\/.+\.mp4\?sid= - reject
+
+# >> Youtube++
+^https?:\/\/api\.catch\.gift\/api\/v\d\/pagead\/ - reject
+
+# >> Yundongshijie
+^https?:\/\/.+\.iydsj\.com\/api\/.+\/ad - reject
+
+# >> YYeTs
+^https?:\/\/ctrl\.(playcvn|zmzapi)\.(com|net)\/app\/(ads|init) - reject
+
+# >> Zhiboba
+^https?:\/\/a\.qiumibao\.com\/activities\/config\.php - reject
+^https?:\/\/.+\/allOne\.php\?ad_name - reject
+
+# >> Zhihu
+^https?:\/\/www\.zhihu\.com\/terms\/privacy\/confirm - reject
+^https?:\/\/api\.zhihu\.com\/market\/popover - reject
+^https?:\/\/api\.zhihu\.com\/search\/(top|tab|preset) - reject
+^https?:\/\/api\.zhihu\.com\/(launch|ad-style-service|app_config|real_time|ab\/api) - reject
+^https?:\/\/api\.zhihu\.com\/commercial_api\/(launch|real_time) - reject
+^https?:\/\/(api|www)\.zhihu\.com\/.*(featured-comment-ad|recommendations|community-ad) - reject
+^https?:\/\/(api|www)\.zhihu\.com\/(fringe|adx|commercial|ad-style-service|banners|mqtt) - reject
+
+# >> Zhuishushenqi
+^https?:\/\/(api|b)\.zhuishushenqi\.com\/advert - reject
+^https?:\/\/api01pbmp\.zhuishushenqi\.com\/gameAdvert - reject
+^https?:\/\/api\.zhuishushenqi\.com\/notification\/shelfMessage - reject
+^https?:\/\/api\.zhuishushenqi\.com\/notification\/shelfMessage - reject
+^https?:\/\/api\.zhuishushenqi\.com\/recommend - reject
+^https?:\/\/api\.zhuishushenqi\.com\/splashes\/ios - reject
+^https?:\/\/api\.zhuishushenqi\.com\/user\/bookshelf-updated - reject
+^https?:\/\/b\.zhuishushenqi\.com\/advert - reject
+^https?:\/\/dspsdk\.abreader\.com\/v\d\/api\/ad\? - reject
+^https?:\/\/itunes\.apple\.com\/lookup\?id=575826903 - reject
+^https?:\/\/mi\.gdt\.qq\.com\/gdt_mview\.fcg - reject
+
+[Host]
+ip6-localhost = ::1
+ip6-loopback = ::1
+doh.rixcloud.dev = server:119.29.29.29
+taobao.com = server:223.6.6.6
+*.taobao.com = server:223.6.6.6
+tmall.com = server:223.6.6.6
+*.tmall.com = server:223.6.6.6
+jd.com = server:119.29.29.29
+*.jd.com = server:119.28.28.28
+*.qq.com = server:119.28.28.28
+*.tencent.com = server:119.28.28.28
+*.alicdn.com = server:223.5.5.5
+aliyun.com = server:223.5.5.5
+*.aliyun.com = server:223.5.5.5
+weixin.com = server:119.28.28.28
+*.weixin.com = server:119.28.28.28
+bilibili.com = server:119.29.29.29
+*.bilibili.com = server:119.29.29.29
+hdslb.com = server:119.29.29.29
+163.com = server:119.29.29.29
+*.163.com = server:119.29.29.29
+126.com = server:119.29.29.29
+*.126.com = server:119.29.29.29
+*.126.net = server:119.29.29.29
+*.127.net = server:119.29.29.29
+*.netease.com = server:119.29.29.29
+mi.com = server:119.29.29.29
+*.mi.com = server:119.29.29.29
+xiaomi.com = server:119.29.29.29
+*.xiaomi.com = server:119.29.29.29
+routerlogin.net = server:system
+_hotspot_.m2m = server:system
+router.asus.com = server:system
+hotspot.cslwifi.com = server:system
+amplifi.lan = server:system
+*.lan = server:system
+
+[Script]
+
+http-response ^https?:\/\/(api|mapi)\.weibo\.(cn|com)\/2(\/groups\/timeline|\/statuses\/unread|\/statuses\/extend|\/comments\/build_comments|\/photo\/recommend_list|\/stories\/video_stream|\/statuses\/positives\/get|\/stories\/home_list|\/profile\/statuses|\/statuses\/friends\/timeline|\/service\/picfeed) requires-body=true,script-path=https://subweb.s3.fr-par.scw.cloud/Script/wb_ad,script-update-interval=86400
+http-response ^https?:\/\/(sdk|wb)app\.uve\.weibo\.com(\/interface\/sdk\/sdkad.php|\/wbapplua\/wbpullad.lua) requires-body=true,script-path=https://subweb.s3.fr-par.scw.cloud/Script/wb_launch,script-update-interval=86400
+
+http-response ^https:\/\/api\.rr\.tv[\s\S]*(channel|Feed|Choice|profile|Medal) max-size=524288,requires-body=true,script-path=https://subweb.s3.fr-par.scw.cloud/Script/RRad,script-update-interval=86400
+
+# Onewayticket255
+http-response https://oauth.secure.pixiv.net/auth/token requires-body=1,max-size=0,script-path=https://subweb.s3.fr-par.scw.cloud/Script/pixiv_premium,script-update-interval=86400
+
+# rixCloud
+
+http-response https://abema.tv/.* requires-body=1,max-size=-1,script-path=https://subweb.s3.fr-par.scw.cloud/Script/surge_abematv_web,script-update-interval=86400
+
+[MITM]
+enable = true
+tcp-connection = false
+skip-server-cert-verify = false
+hostname = *.abema.tv, *.amemv.com, *.music.163.com, music.163.com, *.music.126.net, music.126.net, *.chelaile.net.cn, *.didistatic.com, *.google-analytics.com, *.googlevideo.com, *.iydsj.com, *.k.sohu.com, *.kfc.com, *.kingsoft-office-service.com, *.meituan.net, *.ofo.com, *.pixiv.net, *.pstatp.com, *.rixcloudservice.com, *.snssdk.com, *.uve.weibo.com, *.wikipedia.org, *.wikiwand.com, *.ydstatic.com, *.youdao.com, *.youtube.com, *.zhuishushenqi.com, 119.18.193.135, 123.59.31.1, 153.3.236.81, 180.101.212.22, 218.11.3.70, 59.151.53.6, a.apicloud.com, a.applovin.com, a.qiumibao.com, a.sfansclub.com, a.wkanx.com, abema.tv, acs.m.taobao.com, act.vip.iqiyi.com, adse.ximalaya.com, api*.amemv.com, api*.musical.ly, api*.tiktokv.com, api-release.wuta-cam.com, api.abema.io, api.bilibili.com, api.daydaycook.com.cn, api.gotokeep.com, api.intsig.net, api.jr.mi.com, api.jxedt.com, api.kkmh.com, api.m.jd.com, api.mgzf.com, api.psy-1.com, api.rr.tv, api.smzdm.com, api.tv.sohu.com, api.wallstreetcn.com, api.weibo.cn, api.xiachufang.com, api.zhihu.com, api.zhuishushenqi.com, api5.futunn.com, app.10086.cn, app.58.com, app.api.ke.com, app.bilibili.com, app.mixcapp.com, app.variflight.com, app.wy.guahao.com, b.zhuishushenqi.com, c.m.163.com, cap.caocaokeji.cn, capi.mwee.cn, cdn.moji.com, channel.beitaichufang.com, client.mail.163.com, cms.daydaycook.com.cn, dspsdk.abreader.com, fdfs.xmcdn.com, gateway.shouqiev.com, gw-passenger.01zhuanche.com, gw.alicdn.com, huichuan.sm.cn, i.weread.qq.com, i.ys7.com, iapi.bishijie.com, iface.iqiyi.com, img*.doubanio.com, img.jiemian.com, interface.music.163.com, ios.wps.cn, m*.amap.com, m.client.10010.com, m.creditcard.ecitic.com, m.ibuscloud.com, m.yap.yahoo.com, mapi.mafengwo.cn, mapi.weibo.com, media.qyer.com, mi.gdt.qq.com, mob.mddcloud.com.cn, mobile-api2011.elong.com, mp.weixin.qq.com, mrobot.pcauto.com.cn, mrobot.pconline.com.cn, ms.jr.jd.com, msspjh.emarbox.com, newsso.map.qq.com, nnapp.cloudbae.cn, open.qyer.com, portal-xunyou.qingcdn.com, pss.txffp.com, r.inews.qq.com, render.alipay.com, res-release.wuta-cam.com, richmanapi.jxedt.com, service.4gtv.tv, smkmp.96225.com, snailsleep.net, sp.kaola.com, ssl.kohsocialapp.qq.com, static.vuevideo.net, static1.keepcdn.com, support.you.163.com, thor.weidian.com, www.dandanzan.com, www.flyertea.com, www.zhihu.com, youtubei.googleapis.com, zhidao.baidu.com
+ca-p12 = MIIEWgIBAzCCBCAGCSqGSIb3DQEHAaCCBBEEggQNMIIECTCCAv8GCSqGSIb3DQEHBqCCAvAwggLsAgEAMIIC5QYJKoZIhvcNAQcBMBwGCiqGSIb3DQEMAQYwDgQIEbxT6Tq17dsCAggAgIICuCzGa3ovYwnv6OIzJLkSKyAFypSmJ8KTBPyai2s1heOTIf3PoC0aSml1Q0blJ2R9tAEJMS3SoM4PjNK6q6nGycAgx1dIUFEQG7DEQebVP0XHHK6uNyRPqgXPrhCXjqZSOLhpcsg4BfLRjf0S0fquZySAi7kn5IXUo1fUey2r/36UkT8imBHPsUSsllryK5dXBQAwJtPYGl7nV50F/LA58ckv5pT+gDS4vVvUAytPfoqTDPCUEMzrZkXu7ZP/6YP+DeUgLXFvEubSkmrEeztJoC2GozClPNtRHfbMzA/jTH1/lOZ1zDdvrNheDLgP8CBv/mawNy4dxrJozfOcdEiWdLAMp8PmcXvaY9sNVlYYP+ztIMA/oaIHEycsOvx1PxMU2i8s/SIZBDszdHgRqKC6fVJxcrv0qtYdUlmfGKWt85LeB7JPXlmfs6ovGrZuc9y2WNnq2cbPmZuKbdxB5j/oM8jA6fLO9Z1MZDEXo42CgU7ZONjK8/bLG5J3wlI4DnC6HYwk3hSUWRBFpjNkRlUhZZWwMsfjBmYG9/hvDF7aGCeBDwm/euWLz9lGuUqRs5F11YhRL2dhOHC2mB4fhsSGbsgOps15fsuUydheYbU12hkGfYQSNsVi0d1GiGIsdiEtrYhXAWnY6DfGPERbhYvwlPSUAvdgWltC/BYgVMM//y3PwCVhcjEfYOK6k3ZNLuIc4Nebk2FPI7u0eXCk0Pi/RiSlOiBO79B2jpEdpyQbEDYAvetEsmaU6M8SZMMHnupNET/Sy+LlpFhRDSRcQndHpBkw166rM+6H3IHewJyYZBNvesltVBuSGtmJx57QI63CgCTUiu/UmWlHKmGuK5pHbMJlkREWJnVYqT3WIoB7MCX19bhLWxfbcLO+pipr8jrrjUF0skOLwg7HxnqHDk6oLyN4eLgn3Kr70zCCAQIGCSqGSIb3DQEHAaCB9ASB8TCB7jCB6wYLKoZIhvcNAQwKAQKggbQwgbEwHAYKKoZIhvcNAQwBAzAOBAgCgEDjD1kMngICCAAEgZCwn6xW0rtwHctlMsJw20caSgWcFTLcNBTgISSri2XLMeJfvygcgFbO7/zT64stk1tVZRktjAX/fELsFp4Xw/UspdVG6CgsRE7QcY+CT8wn6dvusvU2mv3KpI7NwrXmUMsKNbW5N8Qh37WYTCg5mvA7jFAazC+RnKgoMvMVnQbuT1CMJ3in7lPIsPTW3ub0188xJTAjBgkqhkiG9w0BCRUxFgQU8ZGlcfqIeitY4nkiNU7TX5gEi6MwMTAhMAkGBSsOAwIaBQAEFCBiCE2z1g+P8yPQTFy79/Pahq/lBAixZy/UGOLmVQICCAA=
+ca-passphrase = rixCloudPKI
+
+[Proxy]
+DIRECT = direct
+㉿WX公众号[晴园] = vmess, 65.52.187.168, 80, username=acee9a77-5023-4793-8c3b-46b464ba10b6, tls=false, ws=true, ws-path=/, sni=65.52.187.168, ws-headers=Host:65.52.187.168, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 2 = vmess, c10s4.jamjams.net, 15838, username=f7d47295-4d30-475e-8eeb-76cb8e4c49c0, tls=false, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 3 = vmess, af01.uwork.mobi, 80, username=00000000-0000-0000-0000-000000000001, tls=false, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 4 = vmess, 13.208.92.125, 80, username=acee9a77-5023-4793-8c3b-46b464ba10b6, tls=false, ws=true, ws-path=/, sni=13.208.92.125, ws-headers=Host:13.208.92.125, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 5 = vmess, 042.KR.AP.POP.BIGAIRPORT.NET, 443, username=0d5e5a2f-aa27-43d4-9a79-1191ebdb2be4, tls=true, ws=true, ws-path=/, sni=042.KR.AP.POP.BIGAIRPORT.NET, ws-headers=Host:042.KR.AP.POP.BIGAIRPORT.NET, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 6 = vmess, 048.KR.AP.POP.BIGAIRPORT.NET, 80, username=0d5e5a2f-aa27-43d4-9a79-1191ebdb2be4, tls=false, ws=true, ws-path=/, sni=048.KR.AP.POP.BIGAIRPORT.NET, ws-headers=Host:048.KR.AP.POP.BIGAIRPORT.NET, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 7 = vmess, c26s4.jamjams.net, 25661, username=ddd1dd39-fe36-4d82-8318-475093d78ec0, tls=false, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 8 = vmess, 047.KR.AP.POP.BIGAIRPORT.NET, 80, username=0d5e5a2f-aa27-43d4-9a79-1191ebdb2be4, tls=false, ws=true, ws-path=/, sni=047.KR.AP.POP.BIGAIRPORT.NET, ws-headers=Host:047.KR.AP.POP.BIGAIRPORT.NET, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 9 = vmess, 049.KR.AP.POP.BIGAIRPORT.NET, 80, username=0d5e5a2f-aa27-43d4-9a79-1191ebdb2be4, tls=false, ws=true, ws-path=/, sni=049.KR.AP.POP.BIGAIRPORT.NET, ws-headers=Host:049.KR.AP.POP.BIGAIRPORT.NET, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 10 = vmess, 139.155.22.227, 49110, username=f7675b7e-59bf-435c-ac03-dc2482f27e5d, tls=false, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 11 = vmess, 001.HK.AP.POP.BIGAIRPORT.NET, 80, username=0d5e5a2f-aa27-43d4-9a79-1191ebdb2be4, tls=false, ws=true, ws-path=/, sni=001.HK.AP.POP.BIGAIRPORT.NET, ws-headers=Host:001.HK.AP.POP.BIGAIRPORT.NET, skip-cert-verify=0, tfo=false
+欧洲(㉿WX公众号[晴园]) = ss, 137.59.52.107, 50168, encrypt-method=aes-256-gcm, password=WCuz7yrfZSCQQXSNrtGPz2HT, tfo=false
+㉿WX公众号[晴园] 12 = vmess, 65.52.187.168, 80, username=db3954ee-c19e-46a7-8a13-8e7befcfcd80, tls=false, ws=true, ws-path=/, sni=65.52.187.168, ws-headers=Host:65.52.187.168, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 13 = vmess, 004.HK.AP.POP.BIGAIRPORT.NET, 80, username=0d5e5a2f-aa27-43d4-9a79-1191ebdb2be4, tls=false, ws=true, ws-path=/, sni=004.HK.AP.POP.BIGAIRPORT.NET, ws-headers=Host:004.HK.AP.POP.BIGAIRPORT.NET, skip-cert-verify=0, tfo=false
+🇮🇳 ㉿WX公众号[晴园]_🇮🇳_IN_印度_6 = ss, 165.231.253.147, 31764, encrypt-method=aes-256-gcm, password=YgusH2MWA8PWc3p2VDsR7AVv, tfo=false
+🇬🇧 ㉿WX公众号[晴园]-英国-伦敦 = ss, 120.232.41.3, 122, encrypt-method=aes-128-gcm, password=dHz7JK0, tfo=false
+㉿WX公众号[晴园] 14 = vmess, 003.HK.AP.POP.BIGAIRPORT.NET, 80, username=0d5e5a2f-aa27-43d4-9a79-1191ebdb2be4, tls=false, ws=true, ws-path=/, sni=003.HK.AP.POP.BIGAIRPORT.NET, ws-headers=Host:003.HK.AP.POP.BIGAIRPORT.NET, skip-cert-verify=0, tfo=false
+欧洲(㉿WX公众号[晴园]) 2 = ss, 143.244.57.99, 49653, encrypt-method=aes-256-gcm, password=Y9GcTPemHMKEkrfGQPJqFDNr, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_133 = ss, 154.16.168.186, 33998, encrypt-method=aes-256-gcm, password=NHwQTPLCfaTMSqTnU3mjcSxe, tfo=false
+🇺🇲 ㉿WX公众号[晴园]-美国-亚马逊云 = ss, 120.232.41.2, 140, encrypt-method=aes-128-gcm, password=df94kjm, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_183 = ss, 154.16.168.186, 40093, encrypt-method=aes-256-gcm, password=x23Z4LGkGDkThZ9Kaz4DURQp, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_5 = ss, 143.244.57.99, 47027, encrypt-method=aes-256-gcm, password=Vt5pBJFwdtNB26cJbTXxm88Z, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_91 = ss, 154.16.168.186, 46412, encrypt-method=aes-256-gcm, password=GEqk9WGyybeyXW97YEdanDYs, tfo=false
+🇺🇲 ㉿WX公众号[晴园]-美国-乔治亚A = ss, 120.232.41.3, 145, encrypt-method=aes-128-gcm, password=2F0poCm1, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_102 = ss, 154.16.168.186, 35294, encrypt-method=aes-256-gcm, password=J9Y2ncrdPEC38gwydNFFGBna, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_33 = ss, 143.244.57.99, 44236, encrypt-method=aes-256-gcm, password=FWrXcxPZjJxAN89xLgqY3Acp, tfo=false
+㉿WX公众号[晴园] 15 = vmess, c26s3.jamjams.net, 25661, username=ddd1dd39-fe36-4d82-8318-475093d78ec0, tls=false, skip-cert-verify=0, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_42 = ss, 104.200.131.167, 33998, encrypt-method=aes-256-gcm, password=NHwQTPLCfaTMSqTnU3mjcSxe, tfo=false
+㉿WX公众号[晴园] 16 = vmess, freehk.miao.rest, 80, username=c3cd5c42-9527-4777-973d-a9d33b30bb9a, tls=false, ws=true, ws-path=/, sni=pull.free.video.10010.com, ws-headers=Host:pull.free.video.10010.com, skip-cert-verify=0, tfo=false
+罗马(㉿WX公众号[晴园]) = ss, 193.29.107.123, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_37 = ss, 143.244.57.99, 33998, encrypt-method=aes-256-gcm, password=NHwQTPLCfaTMSqTnU3mjcSxe, tfo=false
+🇨🇦 加拿大(㉿WX公众号[晴园]) = ss, ss1.ssrsub.one, 10443, encrypt-method=aes-128-gcm, password=suo.yt/ssrsub, tfo=false
+🇩🇰 ㉿WX公众号[晴园]_🇩🇰_DK_丹麦_4 = ss, 193.29.107.237, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_58 = ss, 154.16.168.188, 33992, encrypt-method=aes-256-gcm, password=8n6pwAcrrv2pj6tFY2p3TbQ6, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_2 = ss, 143.244.57.99, 48970, encrypt-method=aes-256-gcm, password=ZKEsXkFbUZ2z667YA8A7cEDP, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_157 = ss, 212.102.44.86, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_34 = ss, 143.244.57.99, 50024, encrypt-method=aes-256-gcm, password=b2jDPHUQxCNa2KmGHZjy7C4B, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_5 = ss, 154.16.168.186, 49339, encrypt-method=aes-256-gcm, password=suucSeVLmt6PQKAP77NtGw9x, tfo=false
+🇺🇲 US㉿WX公众号[晴园] = ss, 154.16.168.186, 48794, encrypt-method=aes-256-gcm, password=r9Q3adc3ru9sfBDPEj4yp6U6, tfo=false
+㉿WX公众号[晴园] 17 = vmess, c26s5.jamjams.net, 25661, username=ddd1dd39-fe36-4d82-8318-475093d78ec0, tls=false, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 18 = vmess, 002.HK.AP.POP.BIGAIRPORT.NET, 80, username=0d5e5a2f-aa27-43d4-9a79-1191ebdb2be4, tls=false, ws=true, ws-path=/, sni=002.HK.AP.POP.BIGAIRPORT.NET, ws-headers=Host:002.HK.AP.POP.BIGAIRPORT.NET, skip-cert-verify=0, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_89 = ss, 154.16.168.188, 46642, encrypt-method=aes-256-gcm, password=gYL83DQWXuDbxmZAVVtUTXaK, tfo=false
+㉿WX公众号[晴园] 19 = vmess, c23s801.jamjams.net, 61173, username=9d1043a6-e87e-4bb7-8858-c1185e9c0c3b, tls=false, skip-cert-verify=0, tfo=false
+🇩🇪 德国(㉿WX公众号[晴园]) = ss, 185.102.219.6, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_25 = ss, 208.78.41.195, 31572, encrypt-method=aes-256-gcm, password=n8w4StnbVD9dmXYn4Ajt87EA, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_185 = ss, 154.16.168.186, 47861, encrypt-method=aes-256-gcm, password=LJcChRsGQRhywrtXUU55TLTu, tfo=false
+罗马(㉿WX公众号[晴园]) 2 = ss, 193.29.107.123, 31944, encrypt-method=aes-256-gcm, password=aYNeKDMzYQYw4KbUbJA8Wszq, tfo=false
+🇮🇳 ㉿WX公众号[晴园]_🇮🇳_IN_印度_3 = ss, 165.231.253.147, 34815, encrypt-method=aes-256-gcm, password=LkFAzkzXkSCRYa2CsRdL8cGb, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_42 = ss, 143.244.57.99, 31764, encrypt-method=aes-256-gcm, password=YgusH2MWA8PWc3p2VDsR7AVv, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_20 = ss, 212.102.44.86, 48938, encrypt-method=aes-256-gcm, password=4ejJ8n5ddLuYDUHGXJre2ufJ, tfo=false
+🇨🇭 ㉿WX公众号[晴园]_🇨🇭_CH_瑞士_5 = ss, 84.39.112.35, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+㉿WX公众号[晴园]_🇧🇦_BA_波黑_4 = ss, 185.212.111.59, 49396, encrypt-method=aes-256-gcm, password=BdRWC38L5JUDMTYNNxJGcUwB, tfo=false
+🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_15 = ss, 208.78.41.195, 49396, encrypt-method=aes-256-gcm, password=BdRWC38L5JUDMTYNNxJGcUwB, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_7 = ss, 143.244.57.99, 34687, encrypt-method=aes-256-gcm, password=txmK9WhwP6WPhP7hqSBLVxpN, tfo=false
+㉿WX公众号[晴园] 20 = vmess, ld06.xqkj.cloud, 1516, username=6e412940-1b34-49e5-b4f1-84ded6d0b73f, tls=false, ws=true, ws-path=/, sni=ld06.xqkj.cloud, ws-headers=Host:ld06.xqkj.cloud, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 21 = vmess, 51.89.84.249, 443, username=83a424d8-4bcb-4cee-b016-2c8f1db4a921, tls=true, ws=true, ws-path=/path/310910211916, sni=www.81160553.xyz, ws-headers=Host:www.81160553.xyz, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 22 = vmess, 51.89.84.233, 443, username=bc53ae6f-b939-4b36-9c38-67e9cb76b71c, tls=true, ws=true, ws-path=/path/310910211916, sni=www.47733853.xyz, ws-headers=Host:www.47733853.xyz, skip-cert-verify=0, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_13 = ss, 104.200.131.167, 41676, encrypt-method=aes-256-gcm, password=z6pH3RyttkRWhJ5tpRyt6dYk, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_92 = ss, 104.200.131.167, 50024, encrypt-method=aes-256-gcm, password=b2jDPHUQxCNa2KmGHZjy7C4B, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_4 = ss, 143.244.57.99, 40282, encrypt-method=aes-256-gcm, password=Pvvaw486867D2w4yctL2ULTQ, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_155 = ss, 45.43.19.82, 37588, encrypt-method=aes-256-gcm, password=kD9vkjnE6dsUzwQfvKkPkQAd, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_25 = ss, 104.200.131.167, 34687, encrypt-method=aes-256-gcm, password=txmK9WhwP6WPhP7hqSBLVxpN, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_6 = ss, 154.16.168.186, 49202, encrypt-method=aes-256-gcm, password=btzEYXKZxnR7g6H2vFTQK5TD, tfo=false
+㉿WX公众号[晴园]_🇪🇪_EE_爱沙尼亚_1 = ss, 185.174.159.133, 31944, encrypt-method=aes-256-gcm, password=aYNeKDMzYQYw4KbUbJA8Wszq, tfo=false
+🇩🇪 ㉿WX公众号[晴园]_🇩🇪_DE_德国_11 = ss, 138.199.19.179, 38620, encrypt-method=aes-256-gcm, password=Kquv5UhvZXNMemAQy8DxZ7qn, tfo=false
+🇺🇲 美国(㉿WX公众号[晴园]) = ss, 104.200.131.167, 46642, encrypt-method=aes-256-gcm, password=gYL83DQWXuDbxmZAVVtUTXaK, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_56 = ss, 104.200.131.167, 50168, encrypt-method=aes-256-gcm, password=WCuz7yrfZSCQQXSNrtGPz2HT, tfo=false
+🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_14 = ss, 104.200.132.35, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+🇪🇸 ㉿WX公众号[晴园]_🇪🇸_ES_西班牙_2 = ss, 172.107.233.234, 7306, encrypt-method=aes-256-gcm, password=FoOiGlkAA9yPEGP, tfo=false
+🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin = ss, 193.29.106.117, 48938, encrypt-method=aes-256-gcm, password=4ejJ8n5ddLuYDUHGXJre2ufJ, tfo=false
+🇮🇳 印度(㉿WX公众号[晴园]) = ss, 165.231.253.147, 32558, encrypt-method=aes-256-gcm, password=gJYzm3TLbdL495ryQptaJXQk, tfo=false
+🇺🇲 美国(㉿WX公众号[晴园]) 2 = ss, 198.8.92.67, 49396, encrypt-method=aes-256-gcm, password=BdRWC38L5JUDMTYNNxJGcUwB, tfo=false
+🇮🇩 印尼(㉿WX公众号[晴园]) = ss, 103.120.66.214, 33992, encrypt-method=aes-256-gcm, password=8n6pwAcrrv2pj6tFY2p3TbQ6, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_14 = ss, 143.244.57.99, 45948, encrypt-method=aes-256-gcm, password=j76EXqJcQhuQTr3EvUf7xaK9, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_74 = ss, 154.16.168.188, 31944, encrypt-method=aes-256-gcm, password=aYNeKDMzYQYw4KbUbJA8Wszq, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_38 = ss, 143.244.57.99, 47121, encrypt-method=aes-256-gcm, password=CTK8GXFQgKYQErrghPJfZ6tk, tfo=false
+🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_4 = ss, 91.90.123.115, 47027, encrypt-method=aes-256-gcm, password=Vt5pBJFwdtNB26cJbTXxm88Z, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_39 = ss, 104.200.131.167, 49126, encrypt-method=aes-256-gcm, password=wrCaGtrUbzeRqQLdc8Kmk3Nd, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_3 = ss, 104.200.131.167, 31572, encrypt-method=aes-256-gcm, password=n8w4StnbVD9dmXYn4Ajt87EA, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_31 = ss, 212.102.46.56, 49339, encrypt-method=aes-256-gcm, password=suucSeVLmt6PQKAP77NtGw9x, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_13 = ss, 185.108.106.146, 45746, encrypt-method=aes-256-gcm, password=wEsFcHCvbL4eJkL4DZQa7RgR, tfo=false
+🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_15 = ss, 91.90.123.115, 50168, encrypt-method=aes-256-gcm, password=WCuz7yrfZSCQQXSNrtGPz2HT, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_177 = ss, 154.16.168.186, 47027, encrypt-method=aes-256-gcm, password=Vt5pBJFwdtNB26cJbTXxm88Z, tfo=false
+🇺🇲 美国 堪萨斯㉿WX公众号[晴园] = ss, 143.244.57.99, 42816, encrypt-method=aes-256-gcm, password=tBKBf4pVzNCFKdbPgvwrNXq3, tfo=false
+㉿WX公众号[晴园]bd(GB)United Kiongdom/London = trojan, uk-server-01.f7256f.cn, 443, password=28d98f761aca9d636f44db62544628eb, sni=uk-server-01.f7256f.cn, skip-cert-verify=0, tfo=false
+🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_2 = ss, 208.78.41.195, 48938, encrypt-method=aes-256-gcm, password=4ejJ8n5ddLuYDUHGXJre2ufJ, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_131 = ss, 104.200.131.167, 49653, encrypt-method=aes-256-gcm, password=Y9GcTPemHMKEkrfGQPJqFDNr, tfo=false
+🇬🇧 ㉿WX公众号[晴园]_🇬🇧_GB_英国_13 = ss, 86.106.136.85, 48938, encrypt-method=aes-256-gcm, password=4ejJ8n5ddLuYDUHGXJre2ufJ, tfo=false
+🇮🇪 ㉿WX公众号[晴园]_🇮🇪_IE_爱尔兰_2 = ss, se.free-v2ray.tk, 31572, encrypt-method=aes-256-gcm, password=n8w4StnbVD9dmXYn4Ajt87EA, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_57 = ss, 104.200.131.167, 33148, encrypt-method=aes-256-gcm, password=CMduaFXddcQbwNAAs7xFDnc8, tfo=false
+🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_10 = ss, 91.90.123.115, 47121, encrypt-method=aes-256-gcm, password=CTK8GXFQgKYQErrghPJfZ6tk, tfo=false
+巴基斯坦㉿WX公众号[晴园] = ss, 5.189.202.16, 46642, encrypt-method=aes-256-gcm, password=gYL83DQWXuDbxmZAVVtUTXaK, tfo=false
+🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 2 = ss, 193.29.106.117, 34815, encrypt-method=aes-256-gcm, password=LkFAzkzXkSCRYa2CsRdL8cGb, tfo=false
+🇸🇬 ㉿WX公众号[晴园]9d�(SG)Singapore/Singapore = trojan, sg1.ifl520.xyz, 17001, password=ea6e0d6a-2e18-3afb-82d8-2408de425832, sni=sg1.ifl520.xyz, skip-cert-verify=0, tfo=false
+欧洲(㉿WX公众号[晴园]) 3 = ss, 217.138.211.219, 48938, encrypt-method=aes-256-gcm, password=4ejJ8n5ddLuYDUHGXJre2ufJ, tfo=false
+欧洲(㉿WX公众号[晴园]) 4 = ss, 217.138.220.131, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+欧洲(㉿WX公众号[晴园]) 5 = ss, 178.255.45.187, 50168, encrypt-method=aes-256-gcm, password=WCuz7yrfZSCQQXSNrtGPz2HT, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_106 = ss, 104.200.131.167, 48938, encrypt-method=aes-256-gcm, password=4ejJ8n5ddLuYDUHGXJre2ufJ, tfo=false
+🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_1 = ss, 188.95.55.106, 49339, encrypt-method=aes-256-gcm, password=suucSeVLmt6PQKAP77NtGw9x, tfo=false
+🇩🇪 ㉿WX公众号[晴园]_🇩🇪_DE_德国_20 = ss, 89.163.212.75, 2375, encrypt-method=aes-256-gcm, password=faBAoD54k87UJG7, tfo=false
+㉿WX公众号[晴园]_🇪🇪_EE_爱沙尼亚_2 = ss, 185.174.159.133, 45329, encrypt-method=aes-256-gcm, password=CXSjgD7u7Ar7GxkZ4CgTMUsj, tfo=false
+🇮🇱 ㉿WX公众号[晴园]_🇮🇱_IL_以色列_1 = ss, 87.239.255.119, 38742, encrypt-method=aes-256-gcm, password=DKXfWwc4ebscpXTKpbt85rSH, tfo=false
+🇳🇱 ㉿WX公众号[晴园]_🇳🇱_NL_荷兰_3 = trojan, ned-server-01.selfupay.com, 443, password=a3fa58b581353bb375d2ddad0f327938, sni=ned-server-01.selfupay.com, skip-cert-verify=0, tfo=false
+🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 3 = ss, 193.29.106.117, 33148, encrypt-method=aes-256-gcm, password=CMduaFXddcQbwNAAs7xFDnc8, tfo=false
+🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 4 = ss, 193.29.106.117, 50168, encrypt-method=aes-256-gcm, password=WCuz7yrfZSCQQXSNrtGPz2HT, tfo=false
+罗马(㉿WX公众号[晴园]) 3 = ss, 193.29.106.29, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+罗马(㉿WX公众号[晴园]) 4 = ss, 91.219.215.19, 31944, encrypt-method=aes-256-gcm, password=aYNeKDMzYQYw4KbUbJA8Wszq, tfo=false
+🇨🇭 ㉿WX公众号[晴园]_🇨🇭_CH_瑞士_2 = ss, 45.12.222.245, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+🇦🇹 ㉿WX公众号[晴园]_🇦🇹_AT_奥地利_1 = ss, 5.253.207.85, 49396, encrypt-method=aes-256-gcm, password=BdRWC38L5JUDMTYNNxJGcUwB, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_24 = ss, 185.108.106.146, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+㉿WX公众号[晴园]_🇵🇱_PL_波兰_3 = ss, 178.255.45.187, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+🇬🇧 ㉿WX公众号[晴园]_🇬🇧_GB_英国_1 = ss, 89.238.130.227, 49339, encrypt-method=aes-256-gcm, password=suucSeVLmt6PQKAP77NtGw9x, tfo=false
+🇩🇪 ㉿WX公众号[晴园]_🇩🇪_DE_德国_25 = ss, 37.120.196.53, 49396, encrypt-method=aes-256-gcm, password=BdRWC38L5JUDMTYNNxJGcUwB, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_28 = trojan, ger-server-01.selfupay.com, 443, password=36ebef7d1b1d6205fd0c55f28800e674, sni=ger-server-01.selfupay.com, skip-cert-verify=0, tfo=false
+🇺🇲 US㉿WX公众号[晴园] 2 = ss, 143.244.57.99, 38620, encrypt-method=aes-256-gcm, password=Kquv5UhvZXNMemAQy8DxZ7qn, tfo=false
+🇷🇴 罗马尼亚㉿WX公众号[晴园] = ss, 91.90.123.115, 31944, encrypt-method=aes-256-gcm, password=aYNeKDMzYQYw4KbUbJA8Wszq, tfo=false
+㉿WX公众号[晴园] 23 = vmess, 185.247.138.25, 15079, username=a1d846ec-9bef-4ffd-e34a-43bb06323ac3, tls=false, skip-cert-verify=0, tfo=false
+🇩🇪 德国(㉿WX公众号[晴园]) 2 = ss, 185.166.84.19, 40093, encrypt-method=aes-256-gcm, password=x23Z4LGkGDkThZ9Kaz4DURQp, tfo=false
+🇫🇷 法国(㉿WX公众号[晴园]) = ss, 185.108.106.146, 33992, encrypt-method=aes-256-gcm, password=8n6pwAcrrv2pj6tFY2p3TbQ6, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_96 = ss, 154.16.168.186, 48938, encrypt-method=aes-256-gcm, password=4ejJ8n5ddLuYDUHGXJre2ufJ, tfo=false
+🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_23 = ss, 208.78.41.195, 33992, encrypt-method=aes-256-gcm, password=8n6pwAcrrv2pj6tFY2p3TbQ6, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_32 = ss, 143.244.57.99, 49339, encrypt-method=aes-256-gcm, password=suucSeVLmt6PQKAP77NtGw9x, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_29 = ss, 143.244.57.99, 44745, encrypt-method=aes-256-gcm, password=fyXdw87yCH9SAmFkPvsvLVqC, tfo=false
+㉿WX公众号[晴园]_🇵🇱_PL_波兰_2 = ss, 5.187.49.189, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+🇹🇭 ㉿WX公众号[晴园]_🇹🇭_TH_泰国_1 = ss, 27.131.164.92, 50232, encrypt-method=aes-256-gcm, password=CjchzpwdSjRtDjezYMwx9BKM, tfo=false
+🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_10 = ss, 66.115.147.77, 49339, encrypt-method=aes-256-gcm, password=suucSeVLmt6PQKAP77NtGw9x, tfo=false
+🇳🇱 ㉿WX公众号[晴园]_🇳🇱_NL_荷兰_4 = trojan, ned-server-01.selfupay.com, 443, password=36ebef7d1b1d6205fd0c55f28800e674, sni=ned-server-01.selfupay.com, skip-cert-verify=0, tfo=false
+🇺🇲 US㉿WX公众号[晴园] 3 = ss, 143.244.57.99, 44628, encrypt-method=aes-256-gcm, password=VASQbVcukHfdBGmeS9L7Z8TT, tfo=false
+🇺🇲 美国 堪萨斯%㉿WX公众号[晴园] = ss, 143.244.57.99, 44820, encrypt-method=aes-256-gcm, password=jspgz9G3VmvBMCgMUWLBaZHu, tfo=false
+🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 5 = ss, 193.29.106.117, 48794, encrypt-method=aes-256-gcm, password=r9Q3adc3ru9sfBDPEj4yp6U6, tfo=false
+欧洲(㉿WX公众号[晴园]) 6 = ss, 194.150.167.28, 33992, encrypt-method=aes-256-gcm, password=8n6pwAcrrv2pj6tFY2p3TbQ6, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_21 = ss, 143.244.57.99, 48794, encrypt-method=aes-256-gcm, password=r9Q3adc3ru9sfBDPEj4yp6U6, tfo=false
+㉿WX公众号[晴园]_🇷🇸_RS_塞尔维亚_1 = ss, 152.89.160.213, 33998, encrypt-method=aes-256-gcm, password=NHwQTPLCfaTMSqTnU3mjcSxe, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_145 = ss, 104.200.131.167, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_108 = ss, 154.16.168.186, 49468, encrypt-method=aes-256-gcm, password=LsYSQDxmPj9AcWpSX5HrYfu6, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_146 = ss, 154.16.168.186, 50168, encrypt-method=aes-256-gcm, password=WCuz7yrfZSCQQXSNrtGPz2HT, tfo=false
+🇪🇸 ㉿WX公众号[晴园]_🇪🇸_ES_西班牙_1 = ss, 185.188.61.119, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+🇺🇲 美国 堪萨斯%㉿WX公众号[晴园] 2 = ss, 143.244.57.99, 40093, encrypt-method=aes-256-gcm, password=x23Z4LGkGDkThZ9Kaz4DURQp, tfo=false
+罗马(㉿WX公众号[晴园]) 5 = ss, 45.83.91.133, 40093, encrypt-method=aes-256-gcm, password=x23Z4LGkGDkThZ9Kaz4DURQp, tfo=false
+罗马(㉿WX公众号[晴园]) 6 = ss, 193.29.106.5, 49339, encrypt-method=aes-256-gcm, password=suucSeVLmt6PQKAP77NtGw9x, tfo=false
+㉿WX公众号[晴园]_🇪🇪_EE_爱沙尼亚_3 = ss, 185.174.159.133, 31764, encrypt-method=aes-256-gcm, password=YgusH2MWA8PWc3p2VDsR7AVv, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_8 = ss, 154.16.168.186, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+🇮🇱 ㉿WX公众号[晴园]_🇮🇱_IL_以色列_2 = ss, 87.239.255.116, 38742, encrypt-method=aes-256-gcm, password=DKXfWwc4ebscpXTKpbt85rSH, tfo=false
+㉿WX公众号[晴园] 24 = vmess, v3.ssrsub.one, 153, username=fe74a1aa-4849-4239-838e-1e7d9f6e975d, tls=true, ws=true, ws-path=/ssrsub, sni=v3.ssrsub.one, ws-headers=Host:v3.ssrsub.one, skip-cert-verify=0, tfo=false
+欧洲(㉿WX公众号[晴园]) 7 = ss, 195.158.249.40, 33992, encrypt-method=aes-256-gcm, password=8n6pwAcrrv2pj6tFY2p3TbQ6, tfo=false
+🇫🇷 法国(㉿WX公众号[晴园]) 2 = ss, 217.138.207.253, 33998, encrypt-method=aes-256-gcm, password=NHwQTPLCfaTMSqTnU3mjcSxe, tfo=false
+🇮🇹 意大利(㉿WX公众号[晴园]) = ss, 37.120.207.117, 50024, encrypt-method=aes-256-gcm, password=b2jDPHUQxCNa2KmGHZjy7C4B, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_120 = ss, 212.102.44.86, 45329, encrypt-method=aes-256-gcm, password=CXSjgD7u7Ar7GxkZ4CgTMUsj, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_16 = ss, 143.244.57.99, 44539, encrypt-method=aes-256-gcm, password=r6hDrkP4Et6EENTS8Qy7Tcmg, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_10 = ss, 217.138.207.253, 33148, encrypt-method=aes-256-gcm, password=CMduaFXddcQbwNAAs7xFDnc8, tfo=false
+巴基斯坦%㉿WX公众号[晴园] = ss, 5.189.202.16, 31944, encrypt-method=aes-256-gcm, password=aYNeKDMzYQYw4KbUbJA8Wszq, tfo=false
+🇩🇪 德国(㉿WX公众号[晴园]) 3 = ss, 37.120.217.149, 33998, encrypt-method=aes-256-gcm, password=NHwQTPLCfaTMSqTnU3mjcSxe, tfo=false
+🇫🇷 法国(㉿WX公众号[晴园]) 3 = ss, 217.138.207.253, 33992, encrypt-method=aes-256-gcm, password=8n6pwAcrrv2pj6tFY2p3TbQ6, tfo=false
+罗马(㉿WX公众号[晴园]) 7 = ss, 89.37.95.15, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_20 = ss, 217.138.207.253, 40093, encrypt-method=aes-256-gcm, password=x23Z4LGkGDkThZ9Kaz4DURQp, tfo=false
+🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 6 = ss, 193.29.106.117, 44820, encrypt-method=aes-256-gcm, password=jspgz9G3VmvBMCgMUWLBaZHu, tfo=false
+欧洲(㉿WX公众号[晴园]) 8 = ss, 217.138.222.45, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+欧洲(㉿WX公众号[晴园]) 9 = ss, 84.247.50.69, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+🇩🇪 ㉿WX公众号[晴园]_🇩🇪_DE_德国_7 = ss, 37.120.196.51, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+🇺🇲 美国 堪萨斯%㉿WX公众号[晴园] 3 = ss, 143.244.57.99, 44742, encrypt-method=aes-256-gcm, password=QCStKzZ56SHBc4tL7stCEqqd, tfo=false
+欧洲(㉿WX公众号[晴园]) 10 = ss, 45.12.221.179, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_130 = ss, 45.43.19.82, 46642, encrypt-method=aes-256-gcm, password=gYL83DQWXuDbxmZAVVtUTXaK, tfo=false
+㉿WX公众号[晴园] 25 = vmess, ld09.xqkj.cloud, 1517, username=6e412940-1b34-49e5-b4f1-84ded6d0b73f, tls=false, ws=true, ws-path=/, sni=ld09.xqkj.cloud, ws-headers=Host:ld09.xqkj.cloud, skip-cert-verify=0, tfo=false
+🇺🇲 美国(㉿WX公众号[晴园]) 3 = ss, 154.17.22.153, 18337, encrypt-method=chacha20-ietf-poly1305, password=Z3YS0KxB8u5jgp736e834y3DaXwSOYzxlFDFqpNCaalDA9CEIRceZOCAnR2yTS, tfo=false
+🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_11 = ss, 188.95.55.106, 33998, encrypt-method=aes-256-gcm, password=NHwQTPLCfaTMSqTnU3mjcSxe, tfo=false
+🇮🇹 ㉿WX公众号[晴园]_🇮🇹_IT_意大利_3 = ss, 217.138.219.227, 39772, encrypt-method=aes-256-gcm, password=CUndSZnYsPKcu6Kj8THVMBHD, tfo=false
+㉿WX公众号[晴园] 26 = vmess, 040.SG.AP.POP.BIGAIRPORT.NET, 80, username=0d5e5a2f-aa27-43d4-9a79-1191ebdb2be4, tls=false, ws=true, ws-path=/, sni=040.SG.AP.POP.BIGAIRPORT.NET, ws-headers=Host:040.SG.AP.POP.BIGAIRPORT.NET, skip-cert-verify=0, tfo=false
+欧洲(㉿WX公众号[晴园]) 11 = ss, 188.92.78.152, 33992, encrypt-method=aes-256-gcm, password=8n6pwAcrrv2pj6tFY2p3TbQ6, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_11 = ss, 143.244.57.99, 49468, encrypt-method=aes-256-gcm, password=LsYSQDxmPj9AcWpSX5HrYfu6, tfo=false
+🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_5 = ss, 185.128.24.34, 804, encrypt-method=chacha20-ietf-poly1305, password=G!yBwPWH3Vao, tfo=false
+欧洲(㉿WX公众号[晴园]) 12 = ss, 91.205.230.160, 37588, encrypt-method=aes-256-gcm, password=kD9vkjnE6dsUzwQfvKkPkQAd, tfo=false
+🇫🇷 法国(㉿WX公众号[晴园]) 4 = ss, 51.89.99.52, 805, encrypt-method=chacha20-ietf-poly1305, password=G!yBwPWH3Vao, tfo=false
+🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_12 = ss, 185.128.24.34, 809, encrypt-method=chacha20-ietf-poly1305, password=G!yBwPWH3Vao, tfo=false
+欧洲(㉿WX公众号[晴园]) 13 = ss, 5.154.174.189, 35294, encrypt-method=aes-256-gcm, password=J9Y2ncrdPEC38gwydNFFGBna, tfo=false
+🇪🇸 西班牙 瓦伦西亚㉿WX公众号[晴园] = ss, 185.153.151.100, 35294, encrypt-method=aes-256-gcm, password=J9Y2ncrdPEC38gwydNFFGBna, tfo=false
+㉿WX公众号[晴园] 27 = vmess, v5.ssrsub.one, 153, username=fe74a1aa-4849-4239-838e-1e7d9f6e975d, tls=true, ws=true, ws-path=/ssrsub, sni=v5.ssrsub.one, ws-headers=Host:v5.ssrsub.one, skip-cert-verify=0, tfo=false
+🇫🇷 法国(㉿WX公众号[晴园]) 5 = ss, 185.108.106.105, 33148, encrypt-method=aes-256-gcm, password=CMduaFXddcQbwNAAs7xFDnc8, tfo=false
+🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_4 = ss, 185.128.24.34, 800, encrypt-method=chacha20-ietf-poly1305, password=G!yBwPWH3Vao, tfo=false
+🇷🇴 罗马尼亚㉿WX公众号[晴园] 2 = ss, 91.90.123.115, 43893, encrypt-method=aes-256-gcm, password=YyCBeDdYX4cadHpCkkmdJLq8, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_147 = ss, 207.244.67.149, 33998, encrypt-method=aes-256-gcm, password=NHwQTPLCfaTMSqTnU3mjcSxe, tfo=false
+🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_3 = ss, 185.128.24.34, 805, encrypt-method=chacha20-ietf-poly1305, password=G!yBwPWH3Vao, tfo=false
+🇮🇹 意大利(㉿WX公众号[晴园]) 2 = ss, 82.102.26.94, 38742, encrypt-method=aes-256-gcm, password=DKXfWwc4ebscpXTKpbt85rSH, tfo=false
+㉿WX公众号[晴园]_🇰🇿_KZ_哈萨克斯坦_19 = ss, 5.189.202.16, 49396, encrypt-method=aes-256-gcm, password=BdRWC38L5JUDMTYNNxJGcUwB, tfo=false
+🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_19 = ss, 198.8.92.84, 38033, encrypt-method=aes-256-gcm, password=xpQwyV4W5FdA6NMANJJx73US, tfo=false
+🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_7 = ss, 185.128.24.34, 808, encrypt-method=chacha20-ietf-poly1305, password=G!yBwPWH3Vao, tfo=false
+㉿WX公众号[晴园] 28 = vmess, 52.229.154.191, 80, username=acee9a77-5023-4793-8c3b-46b464ba10b6, tls=false, ws=true, ws-path=/, sni=52.229.154.191, ws-headers=Host:52.229.154.191, skip-cert-verify=0, tfo=false
+㉿WX公众号[晴园] 29 = vmess, v5.ssrsub.one, 153, username=7622e286-0c41-412e-8381-1fe7a2da2c91, tls=true, ws=true, ws-path=/ssrsub, sni=v5.ssrsub.one, ws-headers=Host:v5.ssrsub.one, skip-cert-verify=0, tfo=false
+🇺🇲 美国(㉿WX公众号[晴园]) 4 = ss, 212.102.40.68, 48938, encrypt-method=aes-256-gcm, password=4ejJ8n5ddLuYDUHGXJre2ufJ, tfo=false
+🇩🇪 德国(㉿WX公众号[晴园]) 4 = ss, 185.174.159.133, 49126, encrypt-method=aes-256-gcm, password=wrCaGtrUbzeRqQLdc8Kmk3Nd, tfo=false
+🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_32 = ss, 198.8.92.84, 47121, encrypt-method=aes-256-gcm, password=CTK8GXFQgKYQErrghPJfZ6tk, tfo=false
+㉿WX公众号[晴园]_🇵🇹_PT_葡萄牙_4 = ss, 5.154.174.67, 37473, encrypt-method=aes-256-gcm, password=enctdKyJfSu76VqznKwTt6Ap, tfo=false
+🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_118 = trojan, t1.ssrsub.one, 8443, password=fe74a1aa-4849-4239-838e-1e7d9f6e975d, sni=t1.ssrsub.one, skip-cert-verify=0, tfo=false
+🇨🇦 ㉿WX公众号[晴园]a7(CA)Canada/Vancouver = ss, 198.8.92.84, 44236, encrypt-method=aes-256-gcm, password=FWrXcxPZjJxAN89xLgqY3Acp, tfo=false
+‌🇨🇦CA㉿WX公众号[晴园] = ss, 198.8.92.84, 50168, encrypt-method=aes-256-gcm, password=WCuz7yrfZSCQQXSNrtGPz2HT, tfo=false
+🇨🇦 ㉿WX公众号[晴园]a7(CA)Canada/Vancouver 2 = ss, 198.8.92.84, 42816, encrypt-method=aes-256-gcm, password=tBKBf4pVzNCFKdbPgvwrNXq3, tfo=false
+🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_19 = ss, 143.244.57.99, 37588, encrypt-method=aes-256-gcm, password=kD9vkjnE6dsUzwQfvKkPkQAd, tfo=false
+㉿WX公众号[晴园] 30 = vmess, 23.94.217.239, 65443, username=e6b18c33-cc39-42c2-a6e5-c359d20de8d2, tls=true, ws=true, ws-path=/97b9183/, sni=nl1.piyou.cyou, ws-headers=Host:nl1.piyou.cyou, skip-cert-verify=0, tfo=false
+‌🇨🇦CA㉿WX公众号[晴园] 2 = ss, 198.8.92.84, 41676, encrypt-method=aes-256-gcm, password=z6pH3RyttkRWhJ5tpRyt6dYk, tfo=false
+㉿WX公众号[晴园] 31 = vmess, 46.182.107.94, 443, username=743bdc87-1dea-41bf-aa0b-51dfbbfec8aa, tls=true, ws=true, ws-path=/footers, sni=www.54872833.xyz, ws-headers=Host:www.54872833.xyz, skip-cert-verify=0, tfo=false
+🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_4 = ss, 198.8.92.84, 48794, encrypt-method=aes-256-gcm, password=r9Q3adc3ru9sfBDPEj4yp6U6, tfo=false
+🇭🇰 ㉿WX公众号[晴园]|中国香港特别行政区(HK)Hongkong SAR China/Hong Kong = trojan, hk1.ifl520.xyz, 16001, password=ea6e0d6a-2e18-3afb-82d8-2408de425832, sni=hk1.ifl520.xyz, skip-cert-verify=0, tfo=false
+🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_13 = ss, 91.90.123.115, 49396, encrypt-method=aes-256-gcm, password=BdRWC38L5JUDMTYNNxJGcUwB, tfo=false
+㉿WX公众号[晴园] 32 = vmess, v1.ssrsub.one, 156, username=fe74a1aa-4849-4239-838e-1e7d9f6e975d, tls=true, ws=true, ws-path=/ssrsub, sni=v1.ssrsub.one, ws-headers=Host:v1.ssrsub.one, skip-cert-verify=0, tfo=false
+JP = direct
+TW = direct
+CN = direct
+
+[Proxy Group]
+Proxies = select,HK,JP,SG,TW,US,㉿WX公众号[晴园],㉿WX公众号[晴园] 2,㉿WX公众号[晴园] 3,㉿WX公众号[晴园] 4,㉿WX公众号[晴园] 5,㉿WX公众号[晴园] 6,㉿WX公众号[晴园] 7,㉿WX公众号[晴园] 8,㉿WX公众号[晴园] 9,㉿WX公众号[晴园] 10,㉿WX公众号[晴园] 11,欧洲(㉿WX公众号[晴园]),㉿WX公众号[晴园] 12,㉿WX公众号[晴园] 13,🇮🇳 ㉿WX公众号[晴园]_🇮🇳_IN_印度_6,🇬🇧 ㉿WX公众号[晴园]-英国-伦敦,㉿WX公众号[晴园] 14,欧洲(㉿WX公众号[晴园]) 2,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_133,🇺🇲 ㉿WX公众号[晴园]-美国-亚马逊云,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_183,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_5,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_91,🇺🇲 ㉿WX公众号[晴园]-美国-乔治亚A,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_102,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_33,㉿WX公众号[晴园] 15,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_42,㉿WX公众号[晴园] 16,罗马(㉿WX公众号[晴园]),🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_37,🇨🇦 加拿大(㉿WX公众号[晴园]),🇩🇰 ㉿WX公众号[晴园]_🇩🇰_DK_丹麦_4,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_58,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_2,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_157,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_34,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_5,🇺🇲 US㉿WX公众号[晴园],㉿WX公众号[晴园] 17,㉿WX公众号[晴园] 18,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_89,㉿WX公众号[晴园] 19,🇩🇪 德国(㉿WX公众号[晴园]),🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_25,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_185,罗马(㉿WX公众号[晴园]) 2,🇮🇳 ㉿WX公众号[晴园]_🇮🇳_IN_印度_3,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_42,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_20,🇨🇭 ㉿WX公众号[晴园]_🇨🇭_CH_瑞士_5,㉿WX公众号[晴园]_🇧🇦_BA_波黑_4,🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_15,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_7,㉿WX公众号[晴园] 20,㉿WX公众号[晴园] 21,㉿WX公众号[晴园] 22,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_13,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_92,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_4,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_155,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_25,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_6,㉿WX公众号[晴园]_🇪🇪_EE_爱沙尼亚_1,🇩🇪 ㉿WX公众号[晴园]_🇩🇪_DE_德国_11,🇺🇲 美国(㉿WX公众号[晴园]),🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_56,🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_14,🇪🇸 ㉿WX公众号[晴园]_🇪🇸_ES_西班牙_2,🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin,🇮🇳 印度(㉿WX公众号[晴园]),🇺🇲 美国(㉿WX公众号[晴园]) 2,🇮🇩 印尼(㉿WX公众号[晴园]),🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_14,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_74,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_38,🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_4,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_39,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_3,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_31,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_13,🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_15,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_177,🇺🇲 美国 堪萨斯㉿WX公众号[晴园],㉿WX公众号[晴园]bd(GB)United Kiongdom/London,🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_2,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_131,🇬🇧 ㉿WX公众号[晴园]_🇬🇧_GB_英国_13,🇮🇪 ㉿WX公众号[晴园]_🇮🇪_IE_爱尔兰_2,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_57,🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_10,巴基斯坦㉿WX公众号[晴园],🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 2,🇸🇬 ㉿WX公众号[晴园]9d�(SG)Singapore/Singapore,欧洲(㉿WX公众号[晴园]) 3,欧洲(㉿WX公众号[晴园]) 4,欧洲(㉿WX公众号[晴园]) 5,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_106,🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_1,🇩🇪 ㉿WX公众号[晴园]_🇩🇪_DE_德国_20,㉿WX公众号[晴园]_🇪🇪_EE_爱沙尼亚_2,🇮🇱 ㉿WX公众号[晴园]_🇮🇱_IL_以色列_1,🇳🇱 ㉿WX公众号[晴园]_🇳🇱_NL_荷兰_3,🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 3,🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 4,罗马(㉿WX公众号[晴园]) 3,罗马(㉿WX公众号[晴园]) 4,🇨🇭 ㉿WX公众号[晴园]_🇨🇭_CH_瑞士_2,🇦🇹 ㉿WX公众号[晴园]_🇦🇹_AT_奥地利_1,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_24,㉿WX公众号[晴园]_🇵🇱_PL_波兰_3,🇬🇧 ㉿WX公众号[晴园]_🇬🇧_GB_英国_1,🇩🇪 ㉿WX公众号[晴园]_🇩🇪_DE_德国_25,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_28,🇺🇲 US㉿WX公众号[晴园] 2,🇷🇴 罗马尼亚㉿WX公众号[晴园],㉿WX公众号[晴园] 23,🇩🇪 德国(㉿WX公众号[晴园]) 2,🇫🇷 法国(㉿WX公众号[晴园]),🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_96,🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_23,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_32,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_29,㉿WX公众号[晴园]_🇵🇱_PL_波兰_2,🇹🇭 ㉿WX公众号[晴园]_🇹🇭_TH_泰国_1,🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_10,🇳🇱 ㉿WX公众号[晴园]_🇳🇱_NL_荷兰_4,🇺🇲 US㉿WX公众号[晴园] 3,🇺🇲 美国 堪萨斯%㉿WX公众号[晴园],🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 5,欧洲(㉿WX公众号[晴园]) 6,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_21,㉿WX公众号[晴园]_🇷🇸_RS_塞尔维亚_1,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_145,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_108,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_146,🇪🇸 ㉿WX公众号[晴园]_🇪🇸_ES_西班牙_1,🇺🇲 美国 堪萨斯%㉿WX公众号[晴园] 2,罗马(㉿WX公众号[晴园]) 5,罗马(㉿WX公众号[晴园]) 6,㉿WX公众号[晴园]_🇪🇪_EE_爱沙尼亚_3,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_8,🇮🇱 ㉿WX公众号[晴园]_🇮🇱_IL_以色列_2,㉿WX公众号[晴园] 24,欧洲(㉿WX公众号[晴园]) 7,🇫🇷 法国(㉿WX公众号[晴园]) 2,🇮🇹 意大利(㉿WX公众号[晴园]),🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_120,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_16,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_10,巴基斯坦%㉿WX公众号[晴园],🇩🇪 德国(㉿WX公众号[晴园]) 3,🇫🇷 法国(㉿WX公众号[晴园]) 3,罗马(㉿WX公众号[晴园]) 7,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_20,🇩🇪 ㉿WX公众号[晴园]�(DE)Germany/Berlin 6,欧洲(㉿WX公众号[晴园]) 8,欧洲(㉿WX公众号[晴园]) 9,🇩🇪 ㉿WX公众号[晴园]_🇩🇪_DE_德国_7,🇺🇲 美国 堪萨斯%㉿WX公众号[晴园] 3,欧洲(㉿WX公众号[晴园]) 10,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_130,㉿WX公众号[晴园] 25,🇺🇲 美国(㉿WX公众号[晴园]) 3,🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_11,🇮🇹 ㉿WX公众号[晴园]_🇮🇹_IT_意大利_3,㉿WX公众号[晴园] 26,欧洲(㉿WX公众号[晴园]) 11,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_11,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_5,欧洲(㉿WX公众号[晴园]) 12,🇫🇷 法国(㉿WX公众号[晴园]) 4,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_12,欧洲(㉿WX公众号[晴园]) 13,🇪🇸 西班牙 瓦伦西亚㉿WX公众号[晴园],㉿WX公众号[晴园] 27,🇫🇷 法国(㉿WX公众号[晴园]) 5,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_4,🇷🇴 罗马尼亚㉿WX公众号[晴园] 2,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_147,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_3,🇮🇹 意大利(㉿WX公众号[晴园]) 2,㉿WX公众号[晴园]_🇰🇿_KZ_哈萨克斯坦_19,🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_19,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_7,㉿WX公众号[晴园] 28,㉿WX公众号[晴园] 29,🇺🇲 美国(㉿WX公众号[晴园]) 4,🇩🇪 德国(㉿WX公众号[晴园]) 4,🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_32,㉿WX公众号[晴园]_🇵🇹_PT_葡萄牙_4,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_118,🇨🇦 ㉿WX公众号[晴园]a7(CA)Canada/Vancouver,‌🇨🇦CA㉿WX公众号[晴园],🇨🇦 ㉿WX公众号[晴园]a7(CA)Canada/Vancouver 2,🇫🇷 ㉿WX公众号[晴园]_🇫🇷_FR_法国_19,㉿WX公众号[晴园] 30,‌🇨🇦CA㉿WX公众号[晴园] 2,㉿WX公众号[晴园] 31,🇨🇦 ㉿WX公众号[晴园]_🇨🇦_CA_加拿大_4,🇭🇰 ㉿WX公众号[晴园]|中国香港特别行政区(HK)Hongkong SAR China/Hong Kong,🇧🇪 ㉿WX公众号[晴园]_🇧🇪_BE_比利时_13,㉿WX公众号[晴园] 32
+Netflix = select,Proxies,HK,JP,SG,TW,US
+Bahamut = select,Proxies,TW
+Bilibili = select,DIRECT,TW
+Netease = select,DIRECT,CN
+Apple = select,Proxies,DIRECT,HK,JP,US
+HK = select,🇭🇰 ㉿WX公众号[晴园]|中国香港特别行政区(HK)Hongkong SAR China/Hong Kong
+SG = select,🇸🇬 ㉿WX公众号[晴园]9d�(SG)Singapore/Singapore,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_5,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_12,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_4,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_3,🇸🇬 ㉿WX公众号[晴园]_🇸🇬_SG_新加坡_7
+US = select,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_133,🇺🇲 ㉿WX公众号[晴园]-美国-亚马逊云,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_183,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_91,🇺🇲 ㉿WX公众号[晴园]-美国-乔治亚A,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_102,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_42,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_58,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_157,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_5,🇺🇲 US㉿WX公众号[晴园],🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_89,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_185,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_20,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_13,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_92,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_155,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_25,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_6,🇺🇲 美国(㉿WX公众号[晴园]),🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_56,🇺🇲 美国(㉿WX公众号[晴园]) 2,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_74,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_39,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_3,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_31,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_177,🇺🇲 美国 堪萨斯㉿WX公众号[晴园],🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_131,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_57,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_106,🇺🇲 US㉿WX公众号[晴园] 2,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_96,🇺🇲 US㉿WX公众号[晴园] 3,🇺🇲 美国 堪萨斯%㉿WX公众号[晴园],🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_145,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_108,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_146,🇺🇲 美国 堪萨斯%㉿WX公众号[晴园] 2,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_8,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_120,🇺🇲 美国 堪萨斯%㉿WX公众号[晴园] 3,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_130,🇺🇲 美国(㉿WX公众号[晴园]) 3,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_147,🇺🇲 美国(㉿WX公众号[晴园]) 4,🇺🇲 ㉿WX公众号[晴园]_🇺🇸_US_美国_118
